@@ -2,11 +2,13 @@ package com.ekko.user.web;
 
 import com.ekko.user.domain.User;
 import com.ekko.user.domain.UserRepository;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+@Data
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -14,6 +16,7 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
