@@ -1,0 +1,22 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: ekko-message
+  datasource:
+    url: jdbc:postgresql://localhost:5434/messagedb
+    username: ekko
+    password: ekko
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+jwt:
+  secret: ekkosecretkey1234567890ekkosecretkey1234567890ekkosecretkey1234567890
