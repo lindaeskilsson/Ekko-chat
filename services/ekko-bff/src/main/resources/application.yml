@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ekko-bff
+
+services:
+  user: http://localhost:8082
+  auth: http://localhost:8081
+  message: http://localhost:8083
+
+jwt:
+  secret: ekkosecretkey1234567890ekkosecretkey1234567890ekkosecretkey1234567890
