@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekko Chat</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libertinus+Keyboard&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>Ekko</h1>
+
+    <!-- Login -->
+    <div id="loginView">
+        <h2>Logga in</h2>
+        <input type="text" id="loginUsername" placeholder="Användarnamn" />
+        <input type="password" id="loginPassword" placeholder="Lösenord" />
+        <div id="loginError" class="error"></div>
+        <button onclick="login()">Logga in</button>
+        <p class="link" onclick="showRegister()">Inget konto? Registrera dig</p>
+    </div>
+
+    <!-- Register -->
+    <div id="registerView" class="hidden">
+        <h2>Registrera</h2>
+        <input type="text" id="regFirstName" placeholder="Förnamn" />
+        <input type="text" id="regLastName" placeholder="Efternamn" />
+        <input type="email" id="regEmail" placeholder="E-post" />
+        <input type="text" id="regUsername" placeholder="Användarnamn" />
+        <input type="password" id="regPassword" placeholder="Lösenord" />
+        <div id="registerError" class="error"></div>
+        <div id="registerSuccess" class="success"></div>
+        <button onclick="register()">Registrera</button>
+        <p class="link" onclick="showLogin()">Har du redan ett konto? Logga in</p>
+    </div>
+
+    <!-- Chat -->
+    <div id="chatView" class="hidden">
+        <h2>Ekko Chat</h2>
+        <div class="chat-container">
+            <div class="messages" id="messageList"></div>
+            <div class="input-row">
+                <input type="text" id="messageInput" placeholder="Skriv ett meddelande..." onkeypress="handleKey(event)" />
+                <button onclick="sendMessage()">Skicka</button>
+            </div>
+        </div>
+        <button class="logout" onclick="logout()">Logga ut</button>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
