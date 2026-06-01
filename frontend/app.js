@@ -1,6 +1,7 @@
 const API = 'http://localhost:8080';
 let token = null;
 let userId = null;
+let username = null;
 let pollInterval = null;
 
 function showLogin() {
@@ -65,6 +66,7 @@ async function login() {
             token = data.token;
             const payload = JSON.parse(atob(token.split('.')[1]));
             userId = payload.sub;
+            username = payload.username;
             showChat();
         } else {
             document.getElementById('loginError').textContent = 'Fel användarnamn eller lösenord.';
@@ -85,7 +87,7 @@ async function sendMessage() {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({ senderId: userId, content })
+            body: JSON.stringify({ senderId: userId, username: username, content })
         });
         input.value = '';
         loadMessages();
@@ -102,12 +104,17 @@ async function loadMessages() {
         if (res.ok) {
             const messages = await res.json();
             const list = document.getElementById('messageList');
-            list.innerHTML = messages.map(m => `
-                <div class="message">
-                    <div>${m.content}</div>
-                    <div class="time">${new Date(m.sentAt).toLocaleTimeString('sv-SE')}</div>
-                </div>
-            `).join('');
+            list.innerHTML = messages.map(m => {
+                const isMe = m.senderId === userId;
+                const isBot = m.username === 'Ekko Bot';
+                return `
+                    <div class="message ${isMe ? 'mine' : ''} ${isBot ? 'bot' : ''}">
+                        <div class="sender">${m.username || 'Okänd'}</div>
+                        <div>${m.content}</div>
+                        <div class="time">${new Date(m.sentAt).toLocaleTimeString('sv-SE')}</div>
+                    </div>
+                `;
+            }).join('');
             list.scrollTop = list.scrollHeight;
         }
     } catch (e) {
@@ -122,6 +129,7 @@ function handleKey(event) {
 function logout() {
     token = null;
     userId = null;
+    username = null;
     clearInterval(pollInterval);
     showLogin();
 }

@@ -18,6 +18,9 @@ public class Message implements Serializable {
     private String senderId;
 
     @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
     private String content;
 
     @Column(nullable = false)
